@@ -1,0 +1,17 @@
+# zips staged during development
+*.zip
+
+# redundant folders (contents already at repo root)
+substrate_manuscript_full/
+substrate_abm_release/
+
+# root-level duplicates
+/alarm.bif
+
+# Python + OS
+__pycache__/
+*.pyc
+.DS_Store
+.ipynb_checkpoints/
+.vscode/
+.idea/
