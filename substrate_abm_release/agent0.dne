@@ -1,0 +1,583 @@
+// ~->[DNET-1]->~
+
+// File created by KannoT at UTokyo using Netica 6.07 on Apr 10, 2020 at 08:08:45 UTC.
+
+bnet agent0 {
+AutoCompile = TRUE;
+autoupdate = TRUE;
+comment = "Represents the working relationships between parts of a car.\n\n\
+	All probabilities are supposed to be over all such cars brought into a garage for repair.\n\n\
+	Copyright 1992-1998 Norsys Software Corp.";
+author = "BoerlageB";
+whenchanged = 1586506119;
+
+visual V1 {
+	defdispform = BELIEFBARS;
+	nodelabeling = TITLE;
+	NodeMaxNumEntries = 50;
+	nodefont = font {shape= "Arial"; size= 10;};
+	linkfont = font {shape= "Arial"; size= 9;};
+	ShowLinkStrengths = 1;
+	windowposn = (289, 106, 837, 541);
+	CommentWindowPosn = (194, 207, 962, 376);
+	resolution = 72;
+	magnification = 0.707107;
+	drawingbounds = (1632, 979);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	NodeSet Node {BuiltIn = 1; Color = 0x00c0c0c0;};
+	NodeSet Nature {BuiltIn = 1; Color = 0x00f8eed2;};
+	NodeSet Deterministic {BuiltIn = 1; Color = 0x00d3caa6;};
+	NodeSet Finding {BuiltIn = 1; Color = 0x00c8c8c8;};
+	NodeSet Constant {BuiltIn = 1; Color = 0x00ffffff;};
+	NodeSet ConstantValue {BuiltIn = 1; Color = 0x00ffffb4;};
+	NodeSet Utility {BuiltIn = 1; Color = 0x00ffbdbd;};
+	NodeSet Decision {BuiltIn = 1; Color = 0x00dee8ff;};
+	NodeSet Documentation {BuiltIn = 1; Color = 0x00f0fafa;};
+	NodeSet Title {BuiltIn = 1; Color = 0x00ffffff;};
+	PrinterSetting A {
+		margins = (1270, 1270, 1270, 1270);
+		magnify = 1;
+		};
+	};
+
+node Alter {
+	discrete = TRUE;
+	states = (Okay, Faulty);
+	kind = NATURE;
+	chance = CHANCE;
+	parents = ();
+	probs = 
+		// Okay         Faulty       
+		  (0.9999996,   4.02029e-7);
+	numcases = 96;
+	title = "Alternator";
+	whenchanged = 1365410118;
+	belief = (0.9999996, 4.020289e-7);
+	visual V1 {
+		center = (432, 96);
+		height = 5;
+		};
+	};
+
+node BatVolt {
+	discrete = TRUE;
+	states = (strong, weak, dead);
+	kind = NATURE;
+	chance = CHANCE;
+	parents = (Alter);
+	probs = 
+		// strong       weak         dead          // Alter  
+		  (0.6081815,   0.1988076,   0.193011,     // Okay   
+		   0.6957643,   0.154368,    0.1498677);   // Faulty ;
+	title = "Battery voltage";
+	whenchanged = 1569479901;
+	belief = (0.6081815, 0.1988076, 0.193011);
+	visual V1 {
+		center = (432, 240);
+		height = 18;
+		};
+	};
+
+node MFuse {
+	discrete = TRUE;
+	states = (okay, blown);
+	kind = NATURE;
+	chance = CHANCE;
+	parents = ();
+	probs = 
+		// okay         blown        
+		  (0.9659384,   0.03406153);
+	numcases = 86;
+	title = "Main fuse";
+	whenchanged = 1365410118;
+	belief = (0.9659384, 0.03406153);
+	visual V1 {
+		center = (108, 96);
+		height = 6;
+		};
+	};
+
+node Dist {
+	discrete = TRUE;
+	states = (Okay, Faulty);
+	kind = NATURE;
+	chance = CHANCE;
+	parents = ();
+	probs = 
+		// Okay         Faulty       
+		  (1,           3.14829e-7);
+	numcases = 88;
+	title = "Distributer";
+	whenchanged = 1365410118;
+	belief = (1, 3.14829e-7);
+	visual V1 {
+		center = (90, 222);
+		height = 3;
+		};
+	};
+
+node PlugVolt {
+	discrete = TRUE;
+	states = (strong, weak, none);
+	kind = NATURE;
+	chance = CHANCE;
+	parents = (MFuse, Dist, BatVolt);
+	probs = 
+		// strong       weak         none          // MFuse Dist   BatVolt 
+		  (0.887,       1.790063e-6, 0.1129981,    // okay  Okay   strong  
+		   1.261891e-6, 0.8611183,   0.1388805,    // okay  Okay   weak    
+		   6.485325e-7, 5.421592e-7, 0.9999988,    // okay  Okay   dead    
+		   0.3356387,   0.31706,     0.3473013,    // okay  Faulty strong  
+		   0.3102685,   0.3324126,   0.3573189,    // okay  Faulty weak    
+		   0.3261485,   0.3182309,   0.3556206,    // okay  Faulty dead    
+		   9.736752e-5, 5.536748e-5, 0.9998473,    // blown Okay   strong  
+		   3.360564e-5, 3.174424e-5, 0.9999347,    // blown Okay   weak    
+		   1.511702e-5, 1.415408e-5, 0.9999707,    // blown Okay   dead    
+		   0.3333381,   0.3329116,   0.3337503,    // blown Faulty strong  
+		   0.3331391,   0.3329912,   0.3338697,    // blown Faulty weak    
+		   0.3329376,   0.3326235,   0.3344389);   // blown Faulty dead    ;
+	numcases = 
+		                 // MFuse Dist   BatVolt 
+		  (23.80831,     // okay  Okay   strong  
+		   15.64663,     // okay  Okay   weak    
+		   28.89307,     // okay  Okay   dead    
+		   3.646132e-5,  // okay  Faulty strong  
+		   3.409722e-5,  // okay  Faulty weak    
+		   3.406344e-5,  // okay  Faulty dead    
+		   0.7933584,    // blown Okay   strong  
+		   0.6295693,    // blown Okay   weak    
+		   1.229225,     // blown Okay   dead    
+		   3.023322e-5,  // blown Faulty strong  
+		   3.01257e-5,   // blown Faulty weak    
+		   3.022465e-5); // blown Faulty dead    ;
+	title = "Voltage at plug";
+	whenchanged = 1365410118;
+	belief = (0.521085, 0.1653683, 0.3135468);
+	visual V1 {
+		center = (252, 222);
+		height = 13;
+		link 3 {
+			path = ((360, 222), (324, 222));
+			};
+		};
+	};
+
+node StMotor {
+	discrete = TRUE;
+	states = (Okay, Faulty);
+	kind = NATURE;
+	chance = CHANCE;
+	parents = ();
+	probs = 
+		// Okay         Faulty       
+		  (1,           2.326049e-7);
+	numcases = 80;
+	title = "Starter Motor";
+	whenchanged = 1365410118;
+	belief = (1, 2.326049e-7);
+	visual V1 {
+		center = (114, 474);
+		height = 12;
+		};
+	};
+
+node Starter {
+	discrete = TRUE;
+	states = (Okay, Faulty);
+	kind = NATURE;
+	chance = CHANCE;
+	parents = (MFuse, StMotor, BatVolt);
+	probs = 
+		// Okay         Faulty        // MFuse StMotor BatVolt 
+		  (0.9999992,   7.616808e-7,  // okay  Okay    strong  
+		   0.9999989,   1.08991e-6,   // okay  Okay    weak    
+		   1.045692e-6, 0.9999989,    // okay  Okay    dead    
+		   0.5222936,   0.4777063,    // okay  Faulty  strong  
+		   0.5178195,   0.4821806,    // okay  Faulty  weak    
+		   0.4620456,   0.5379544,    // okay  Faulty  dead    
+		   0.9999515,   4.850695e-5,  // blown Okay    strong  
+		   3.008045e-4, 0.9996992,    // blown Okay    weak    
+		   4.120556e-5, 0.9999588,    // blown Okay    dead    
+		   0.5000098,   0.4999902,    // blown Faulty  strong  
+		   0.4996,      0.5004,       // blown Faulty  weak    
+		   0.4986851,   0.5013149);   // blown Faulty  dead    ;
+	numcases = 
+		                 // MFuse StMotor BatVolt 
+		  (24.61182,     // okay  Okay    strong  
+		   16.24135,     // okay  Okay    weak    
+		   24.69378,     // okay  Okay    dead    
+		   2.314011e-5,  // okay  Faulty  strong  
+		   2.211545e-5,  // okay  Faulty  weak    
+		   2.29401e-5,   // okay  Faulty  dead    
+		   0.8489058,    // blown Okay    strong  
+		   0.523807,     // blown Okay    weak    
+		   1.080449,     // blown Okay    dead    
+		   2.013976e-5,  // blown Faulty  strong  
+		   2.00939e-5,   // blown Faulty  weak    
+		   2.017908e-5); // blown Faulty  dead    ;
+	title = "Starter system";
+	whenchanged = 1365410118;
+	belief = (0.8002181, 0.1997819);
+	visual V1 {
+		center = (318, 516);
+		height = 14;
+		link 1 {
+			path = ((76, 124), (6, 180), (6, 426), (168, 426), (273, 489));
+			};
+		link 3 {
+			path = ((365, 275), (282, 318), (282, 432), (307, 489));
+			};
+		};
+	};
+
+node Lights {
+	discrete = TRUE;
+	states = (bright, dim, off);
+	kind = NATURE;
+	chance = CHANCE;
+	parents = (BatVolt);
+	probs = 
+		// bright       dim          off           // BatVolt 
+		  (0.9999981,   9.731314e-7, 9.294075e-7,  // strong  
+		   2.29995e-6,  0.4614055,   0.5385923,    // weak    
+		   1.01488e-6,  9.525492e-7, 0.999998);    // dead    ;
+	numcases = 
+		                 // BatVolt 
+		  (13,           // strong  
+		   6.50189,      // weak    
+		   10.49817);    // dead    ;
+	title = "Headlights";
+	whenchanged = 1365410118;
+	belief = (0.6081809, 0.09173167, 0.3000874);
+	visual V1 {
+		center = (630, 156);
+		height = 11;
+		link 1 {
+			path = ((504, 240), (522, 240), (534, 156), (561, 156));
+			};
+		};
+	};
+
+node Plugs {
+	discrete = TRUE;
+	states = (okay, too_wide, fouled);
+	kind = NATURE;
+	chance = CHANCE;
+	parents = ();
+	probs = 
+		// okay         too wide     fouled       
+		  (0.6805151,   0.05808745,  0.2613975);
+	numcases = 72;
+	title = "Spark plugs";
+	whenchanged = 1365410118;
+	belief = (0.6805151, 0.05808745, 0.2613975);
+	visual V1 {
+		center = (192, 300);
+		height = 8;
+		};
+	};
+
+node SpkQual {
+	discrete = TRUE;
+	states = (good, bad, very_bad);
+	kind = NATURE;
+	chance = CHANCE;
+	parents = (Plugs, PlugVolt);
+	probs = 
+		// good         bad          very bad      // Plugs    PlugVolt 
+		  (0.9999917,   7.208633e-6, 1.15914e-6,   // okay     strong   
+		   2.405834e-6, 0.9991612,   8.363365e-4,  // okay     weak     
+		   8.27122e-7,  9.052907e-7, 0.9999983,    // okay     none     
+		   1.00171e-5,  0.9999818,   8.179546e-6,  // too wide strong   
+		   2.689685e-5, 2.232222e-4, 0.9997499,    // too wide weak     
+		   1.476293e-5, 1.527668e-5, 0.99997,      // too wide none     
+		   1.895128e-5, 0.999976,    4.996472e-6,  // fouled   strong   
+		   3.946e-6,    9.19107e-6,  0.9999869,    // fouled   weak     
+		   1.684433e-6, 1.802977e-6, 0.9999965);   // fouled   none     ;
+	numcases = 
+		                 // Plugs    PlugVolt 
+		  (13.57255,     // okay     strong   
+		   6.426993,     // okay     weak     
+		   17.99764,     // okay     none     
+		   1.644667,     // too wide strong   
+		   0.5135921,    // too wide weak     
+		   1.024119,     // too wide none     
+		   3.900944,     // fouled   strong   
+		   3.533189,     // fouled   weak     
+		   8.386575);    // fouled   none     ;
+	title = "Spark quality";
+	whenchanged = 1365410118;
+	belief = (0.3546074, 0.2789219, 0.3664708);
+	visual V1 {
+		center = (372, 384);
+		height = 15;
+		link 2 {
+			path = ((278, 257), (347, 349));
+			};
+		};
+	};
+
+node GasTank {
+	discrete = TRUE;
+	states = (has_gas, empty);
+	kind = NATURE;
+	chance = CHANCE;
+	parents = ();
+	probs = 
+		// has gas      empty        
+		  (0.8451723,   0.1548277);
+	numcases = 58;
+	title = "Gas Tank";
+	whenchanged = 1365410118;
+	belief = (0.8451723, 0.1548277);
+	visual V1 {
+		center = (696, 234);
+		height = 10;
+		};
+	};
+
+node GasFilter {
+	discrete = TRUE;
+	states = (clean, dirty);
+	kind = NATURE;
+	chance = CHANCE;
+	parents = ();
+	probs = 
+		// clean        dirty        
+		  (1,           2.677458e-7);
+	numcases = 62;
+	title = "Gas Filter";
+	whenchanged = 1365410118;
+	belief = (1, 2.677458e-7);
+	visual V1 {
+		center = (696, 318);
+		height = 9;
+		};
+	};
+
+node Fuel {
+	discrete = TRUE;
+	states = (good, poor, faulty);
+	kind = NATURE;
+	chance = CHANCE;
+	parents = (GasTank, GasFilter);
+	probs = 
+		// good         poor         faulty        // GasTank GasFilter 
+		  (0.9964078,   4.498756e-7, 0.003591727,  // has gas clean     
+		   0.3448473,   0.3064328,   0.34872,      // has gas dirty     
+		   3.191504e-6, 1.590375e-6, 0.9999952,    // empty   clean     
+		   0.3325802,   0.3261577,   0.341262);    // empty   dirty     ;
+	numcases = 
+		                 // GasTank GasFilter 
+		  (35.02,        // has gas clean     
+		   3.555472e-5,  // has gas dirty     
+		   7.980028,     // empty   clean     
+		   3.104554e-5); // empty   dirty     ;
+	title = "Fuel system";
+	whenchanged = 1365410118;
+	belief = (0.8421366, 7.093201e-7, 0.1578626);
+	visual V1 {
+		center = (696, 414);
+		height = 4;
+		link 1 {
+			path = ((738, 262), (780, 288), (780, 354), (745, 379));
+			};
+		};
+	};
+
+node AirFilter {
+	discrete = TRUE;
+	states = (clean, dirty);
+	kind = NATURE;
+	chance = CHANCE;
+	parents = ();
+	probs = 
+		// clean        dirty        
+		  (0.9402164,   0.05978359);
+	numcases = 64;
+	title = "Air filter";
+	whenchanged = 1365410118;
+	belief = (0.9402164, 0.05978359);
+	visual V1 {
+		center = (534, 318);
+		height = 16;
+		};
+	};
+
+node Air {
+	discrete = TRUE;
+	states = (Okay, Faulty);
+	kind = NATURE;
+	chance = CHANCE;
+	parents = (AirFilter);
+	probs = 
+		// Okay         Faulty        // AirFilter 
+		  (0.9022117,   0.0977883,    // clean     
+		   1.624361e-5, 0.9999837);   // dirty     ;
+	numcases = 
+		                 // AirFilter 
+		  (47.17388,     // clean     
+		   2.826161);    // dirty     ;
+	title = "Air system";
+	whenchanged = 1365410118;
+	belief = (0.8482752, 0.1517248);
+	visual V1 {
+		center = (534, 390);
+		height = 17;
+		};
+	};
+
+node Timing {
+	discrete = TRUE;
+	states = (good, bad, very_bad);
+	kind = NATURE;
+	chance = CHANCE;
+	parents = (Dist);
+	probs = 
+		// good         bad          very bad      // Dist   
+		  (0.792814,    0.1269652,   0.08022077,   // Okay   
+		   0.3214281,   0.3495606,   0.3290113);   // Faulty ;
+	numcases = 
+		                 // Dist   
+		  (41,           // Okay   
+		   4.078234e-5); // Faulty ;
+	title = "Spark timing";
+	whenchanged = 1365410118;
+	belief = (0.7928139, 0.1269653, 0.08022084);
+	visual V1 {
+		center = (90, 378);
+		height = 7;
+		};
+	};
+
+node Starts {
+	discrete = TRUE;
+	states = (True, False);
+	kind = NATURE;
+	chance = CHANCE;
+	parents = (Starter, Fuel, SpkQual, Air, Timing);
+	probs = 
+		// True         False         // Starter Fuel   SpkQual  Air    Timing   
+		  (0.4424629,   0.557537,     // Okay    good   good     Okay   good     
+		   0.9998792,   1.208841e-4,  // Okay    good   good     Okay   bad      
+		   5.17347e-5,  0.9999483,    // Okay    good   good     Okay   very bad 
+		   6.904147e-5, 0.999931,     // Okay    good   good     Faulty good     
+		   0.9988605,   0.001139526,  // Okay    good   good     Faulty bad      
+		   0.9982,      0.001800191,  // Okay    good   good     Faulty very bad 
+		   0.9528885,   0.04711142,   // Okay    good   bad      Okay   good     
+		   1.697115e-4, 0.9998302,    // Okay    good   bad      Okay   bad      
+		   6.445555e-5, 0.9999355,    // Okay    good   bad      Okay   very bad 
+		   2.838832e-5, 0.9999715,    // Okay    good   bad      Faulty good     
+		   3.11109e-4,  0.9996889,    // Okay    good   bad      Faulty bad      
+		   4.921457e-4, 0.9995078,    // Okay    good   bad      Faulty very bad 
+		   1.57241e-5,  0.9999842,    // Okay    good   very bad Okay   good     
+		   3.674435e-4, 0.9996325,    // Okay    good   very bad Okay   bad      
+		   1.143727e-4, 0.9998856,    // Okay    good   very bad Okay   very bad 
+		   2.958421e-5, 0.9999704,    // Okay    good   very bad Faulty good     
+		   4.098272e-4, 0.9995902,    // Okay    good   very bad Faulty bad      
+		   6.484678e-4, 0.9993516,    // Okay    good   very bad Faulty very bad 
+		   0.4776737,   0.5223263,    // Okay    poor   good     Okay   good     
+		   0.4973082,   0.5026917,    // Okay    poor   good     Okay   bad      
+		   0.4940693,   0.5059307,    // Okay    poor   good     Okay   very bad 
+		   0.4953355,   0.5046644,    // Okay    poor   good     Faulty good     
+		   0.4996109,   0.5003891,    // Okay    poor   good     Faulty bad      
+		   0.4997542,   0.5002457,    // Okay    poor   good     Faulty very bad 
+		   0.4912049,   0.508795,     // Okay    poor   bad      Okay   good     
+		   0.497562,    0.502438,     // Okay    poor   bad      Okay   bad      
+		   0.4964735,   0.5035265,    // Okay    poor   bad      Okay   very bad 
+		   0.4946072,   0.5053927,    // Okay    poor   bad      Faulty good     
+		   0.4993871,   0.5006128,    // Okay    poor   bad      Faulty bad      
+		   0.4996128,   0.5003872,    // Okay    poor   bad      Faulty very bad 
+		   0.4899583,   0.5100416,    // Okay    poor   very bad Okay   good     
+		   0.4991338,   0.5008661,    // Okay    poor   very bad Okay   bad      
+		   0.4984136,   0.5015864,    // Okay    poor   very bad Okay   very bad 
+		   0.4972322,   0.5027678,    // Okay    poor   very bad Faulty good     
+		   0.4997433,   0.5002568,    // Okay    poor   very bad Faulty bad      
+		   0.4998378,   0.5001622,    // Okay    poor   very bad Faulty very bad 
+		   4.770587e-5, 0.9999523,    // Okay    faulty good     Okay   good     
+		   2.982199e-4, 0.9997018,    // Okay    faulty good     Okay   bad      
+		   1.457153e-4, 0.9998543,    // Okay    faulty good     Okay   very bad 
+		   3.886177e-4, 0.9996114,    // Okay    faulty good     Faulty good     
+		   0.002476506, 0.9975235,    // Okay    faulty good     Faulty bad      
+		   0.003890361, 0.9961096,    // Okay    faulty good     Faulty very bad 
+		   1.222892e-4, 0.9998777,    // Okay    faulty bad      Okay   good     
+		   2.990209e-4, 0.999701,     // Okay    faulty bad      Okay   bad      
+		   2.23093e-4,  0.9997769,    // Okay    faulty bad      Okay   very bad 
+		   2.794849e-4, 0.9997206,    // Okay    faulty bad      Faulty good     
+		   0.001762051, 0.998238,     // Okay    faulty bad      Faulty bad      
+		   0.002773594, 0.9972264,    // Okay    faulty bad      Faulty very bad 
+		   1.533661e-5, 0.9999846,    // Okay    faulty very bad Okay   good     
+		   2.191937e-4, 0.9997808,    // Okay    faulty very bad Okay   bad      
+		   2.010034e-4, 0.999799,     // Okay    faulty very bad Okay   very bad 
+		   9.70793e-5,  0.9999029,    // Okay    faulty very bad Faulty good     
+		   0.001486756, 0.9985132,    // Okay    faulty very bad Faulty bad      
+		   0.002350948, 0.997649,     // Okay    faulty very bad Faulty very bad 
+		   0.9999036,   9.648542e-5,  // Faulty  good   good     Okay   good     
+		   0.999402,    5.979594e-4,  // Faulty  good   good     Okay   bad      
+		   2.559523e-4, 0.9997441,    // Faulty  good   good     Okay   very bad 
+		   4.052881e-4, 0.9995947,    // Faulty  good   good     Faulty good     
+		   0.9943758,   0.005624172,  // Faulty  good   good     Faulty bad      
+		   0.9911282,   0.008871769,  // Faulty  good   good     Faulty very bad 
+		   0.8785016,   0.1214984,    // Faulty  good   bad      Okay   good     
+		   5.911262e-4, 0.9994089,    // Faulty  good   bad      Okay   bad      
+		   2.942183e-4, 0.9997058,    // Faulty  good   bad      Okay   very bad 
+		   1.453111e-4, 0.9998547,    // Faulty  good   bad      Faulty good     
+		   0.001531035, 0.9984689,    // Faulty  good   bad      Faulty bad      
+		   0.002420988, 0.997579,     // Faulty  good   bad      Faulty very bad 
+		   3.042117e-6, 0.999997,     // Faulty  good   very bad Okay   good     
+		   0.001147663, 0.9988523,    // Faulty  good   very bad Okay   bad      
+		   4.5279e-4,   0.9995472,    // Faulty  good   very bad Okay   very bad 
+		   1.062281e-5, 0.9999894,    // Faulty  good   very bad Faulty good     
+		   1.248843e-4, 0.9998751,    // Faulty  good   very bad Faulty bad      
+		   1.976391e-4, 0.9998024,    // Faulty  good   very bad Faulty very bad 
+		   0.4979242,   0.5020759,    // Faulty  poor   good     Okay   good     
+		   0.4996676,   0.5003325,    // Faulty  poor   good     Okay   bad      
+		   0.4992675,   0.5007325,    // Faulty  poor   good     Okay   very bad 
+		   0.4994985,   0.5005015,    // Faulty  poor   good     Faulty good     
+		   0.499952,    0.500048,     // Faulty  poor   good     Faulty bad      
+		   0.4999697,   0.5000303,    // Faulty  poor   good     Faulty very bad 
+		   0.499951,    0.5000491,    // Faulty  poor   bad      Okay   good     
+		   0.4998133,   0.5001866,    // Faulty  poor   bad      Okay   bad      
+		   0.4996368,   0.5003632,    // Faulty  poor   bad      Okay   very bad 
+		   0.4994968,   0.5005032,    // Faulty  poor   bad      Faulty good     
+		   0.4999448,   0.5000552,    // Faulty  poor   bad      Faulty bad      
+		   0.4999651,   0.5000349,    // Faulty  poor   bad      Faulty very bad 
+		   0.4591054,   0.5408946,    // Faulty  poor   very bad Okay   good     
+		   0.4966485,   0.5033515,    // Faulty  poor   very bad Okay   bad      
+		   0.497754,    0.502246,     // Faulty  poor   very bad Okay   very bad 
+		   0.4919382,   0.5080618,    // Faulty  poor   very bad Faulty good     
+		   0.4991191,   0.5008808,    // Faulty  poor   very bad Faulty bad      
+		   0.4994434,   0.5005565,    // Faulty  poor   very bad Faulty very bad 
+		   3.078589e-4, 0.9996921,    // Faulty  faulty good     Okay   good     
+		   0.001919296, 0.9980807,    // Faulty  faulty good     Okay   bad      
+		   7.937456e-4, 0.9992062,    // Faulty  faulty good     Okay   very bad 
+		   0.002702534, 0.9972975,    // Faulty  faulty good     Faulty good     
+		   0.01723151,  0.9827685,    // Faulty  faulty good     Faulty bad      
+		   0.02698884,  0.9730111,    // Faulty  faulty good     Faulty very bad 
+		   0.001021728, 0.9989783,    // Faulty  faulty bad      Okay   good     
+		   0.002101062, 0.9978989,    // Faulty  faulty bad      Okay   bad      
+		   0.001355316, 0.9986447,    // Faulty  faulty bad      Okay   very bad 
+		   0.00198243,  0.9980175,    // Faulty  faulty bad      Faulty good     
+		   0.01250104,  0.9874989,    // Faulty  faulty bad      Faulty bad      
+		   0.01963749,  0.9803625,    // Faulty  faulty bad      Faulty very bad 
+		   5.643644e-6, 0.9999943,    // Faulty  faulty very bad Okay   good     
+		   6.25923e-5,  0.9999374,    // Faulty  faulty very bad Okay   bad      
+		   9.686814e-5, 0.9999031,    // Faulty  faulty very bad Okay   very bad 
+		   4.393443e-5, 0.9999561,    // Faulty  faulty very bad Faulty good     
+		   5.762484e-4, 0.9994237,    // Faulty  faulty very bad Faulty bad      
+		   9.117189e-4, 0.9990883);   // Faulty  faulty very bad Faulty very bad ;
+	title = "Car starts";
+	whenchanged = 1569479893;
+	belief = (0.281, 0.719);
+	visual V1 {
+		center = (696, 516);
+		height = 2;
+		link 5 {
+			path = ((165, 413), (258, 456), (486, 456), (627, 497));
+			};
+		};
+	};
+ElimOrder = (AirFilter, Alter, Lights, GasTank, GasFilter, StMotor, Plugs, BatVolt, MFuse, Dist, PlugVolt, Starter, SpkQual, Fuel, Air, Timing, Starts);
+};

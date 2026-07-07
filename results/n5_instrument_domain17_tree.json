@@ -1,0 +1,267 @@
+{
+  "axis": "tree",
+  "thd": 0.55,
+  "n_runs": 5,
+  "team_size": 5,
+  "outlier": "A",
+  "results": [
+    {
+      "rank": 1,
+      "pool_idx": 56,
+      "hardness": 15,
+      "seconds": 26.875072479248047,
+      "matched-aware__final_mean": 0.4870588235294118,
+      "matched-aware__final_sd": 0.015784009252939695,
+      "matched-aware__actions_mean": 26.2,
+      "matched-aware__init_conflicts_mean": 40.0,
+      "matched-aware__init_conflicts_sd": 0.0,
+      "matched-aware__init_phantom_mean": 20.0,
+      "matched-aware__init_real_mean": 20.0,
+      "matched-aware__init_by_type_mean": {
+        "I": 8.0,
+        "II": 8.0,
+        "III": 24.0
+      },
+      "matched-aware__init_by_agent_mean": {
+        "A": 20.0,
+        "B": 0.0,
+        "C": 20.0,
+        "D": 0.0,
+        "E": 0.0
+      },
+      "matched-aware__final_conflicts_mean": 342.0,
+      "matched-naive__final_mean": 0.4847058823529412,
+      "matched-naive__final_sd": 0.012887589588356865,
+      "matched-naive__actions_mean": 23.6,
+      "matched-naive__init_conflicts_mean": 40.0,
+      "matched-naive__init_conflicts_sd": 0.0,
+      "matched-naive__init_phantom_mean": 20.0,
+      "matched-naive__init_real_mean": 20.0,
+      "matched-naive__init_by_type_mean": {
+        "I": 8.0,
+        "II": 8.0,
+        "III": 24.0
+      },
+      "matched-naive__init_by_agent_mean": {
+        "A": 20.0,
+        "B": 0.0,
+        "C": 20.0,
+        "D": 0.0,
+        "E": 0.0
+      },
+      "matched-naive__final_conflicts_mean": 294.6,
+      "mismatched-aware__final_mean": 0.45176470588235285,
+      "mismatched-aware__final_sd": 0.02577517917671368,
+      "mismatched-aware__actions_mean": 19.6,
+      "mismatched-aware__init_conflicts_mean": 85.0,
+      "mismatched-aware__init_conflicts_sd": 0.0,
+      "mismatched-aware__init_phantom_mean": 45.0,
+      "mismatched-aware__init_real_mean": 40.0,
+      "mismatched-aware__init_by_type_mean": {
+        "I": 17.0,
+        "II": 17.0,
+        "III": 51.0
+      },
+      "mismatched-aware__init_by_agent_mean": {
+        "A": 40.0,
+        "B": 5.0,
+        "C": 25.0,
+        "D": 10.0,
+        "E": 5.0
+      },
+      "mismatched-aware__final_conflicts_mean": 120.0,
+      "mismatched-naive__final_mean": 0.4635294117647059,
+      "mismatched-naive__final_sd": 0.04209069134117253,
+      "mismatched-naive__actions_mean": 30.2,
+      "mismatched-naive__init_conflicts_mean": 20.0,
+      "mismatched-naive__init_conflicts_sd": 0.0,
+      "mismatched-naive__init_phantom_mean": 20.0,
+      "mismatched-naive__init_real_mean": 0.0,
+      "mismatched-naive__init_by_type_mean": {
+        "I": 4.0,
+        "II": 4.0,
+        "III": 12.0
+      },
+      "mismatched-naive__init_by_agent_mean": {
+        "A": 0.0,
+        "B": 0.0,
+        "C": 20.0,
+        "D": 0.0,
+        "E": 0.0
+      },
+      "mismatched-naive__final_conflicts_mean": 344.8
+    },
+    {
+      "rank": 2,
+      "pool_idx": 22,
+      "hardness": 14,
+      "seconds": 23.846103191375732,
+      "matched-aware__final_mean": 0.4235294117647059,
+      "matched-aware__final_sd": 0.0203770683243397,
+      "matched-aware__actions_mean": 26.6,
+      "matched-aware__init_conflicts_mean": 20.0,
+      "matched-aware__init_conflicts_sd": 0.0,
+      "matched-aware__init_phantom_mean": 20.0,
+      "matched-aware__init_real_mean": 0.0,
+      "matched-aware__init_by_type_mean": {
+        "I": 4.0,
+        "II": 4.0,
+        "III": 12.0
+      },
+      "matched-aware__init_by_agent_mean": {
+        "A": 20.0,
+        "B": 0.0,
+        "C": 0.0,
+        "D": 0.0,
+        "E": 0.0
+      },
+      "matched-aware__final_conflicts_mean": 292.2,
+      "matched-naive__final_mean": 0.4329411764705882,
+      "matched-naive__final_sd": 0.02929388140703229,
+      "matched-naive__actions_mean": 26.0,
+      "matched-naive__init_conflicts_mean": 20.0,
+      "matched-naive__init_conflicts_sd": 0.0,
+      "matched-naive__init_phantom_mean": 20.0,
+      "matched-naive__init_real_mean": 0.0,
+      "matched-naive__init_by_type_mean": {
+        "I": 4.0,
+        "II": 4.0,
+        "III": 12.0
+      },
+      "matched-naive__init_by_agent_mean": {
+        "A": 20.0,
+        "B": 0.0,
+        "C": 0.0,
+        "D": 0.0,
+        "E": 0.0
+      },
+      "matched-naive__final_conflicts_mean": 337.8,
+      "mismatched-aware__final_mean": 0.37882352941176467,
+      "mismatched-aware__final_sd": 0.024110472390493166,
+      "mismatched-aware__actions_mean": 20.4,
+      "mismatched-aware__init_conflicts_mean": 85.0,
+      "mismatched-aware__init_conflicts_sd": 0.0,
+      "mismatched-aware__init_phantom_mean": 45.0,
+      "mismatched-aware__init_real_mean": 40.0,
+      "mismatched-aware__init_by_type_mean": {
+        "I": 17.0,
+        "II": 17.0,
+        "III": 51.0
+      },
+      "mismatched-aware__init_by_agent_mean": {
+        "A": 60.0,
+        "B": 5.0,
+        "C": 0.0,
+        "D": 10.0,
+        "E": 10.0
+      },
+      "mismatched-aware__final_conflicts_mean": 169.8,
+      "mismatched-naive__final_mean": 0.35294117647058826,
+      "mismatched-naive__final_sd": 0.0,
+      "mismatched-naive__actions_mean": 10.0,
+      "mismatched-naive__init_conflicts_mean": 0.0,
+      "mismatched-naive__init_conflicts_sd": 0.0,
+      "mismatched-naive__init_phantom_mean": 0.0,
+      "mismatched-naive__init_real_mean": 0.0,
+      "mismatched-naive__init_by_type_mean": {
+        "I": 0.0,
+        "II": 0.0,
+        "III": 0.0
+      },
+      "mismatched-naive__init_by_agent_mean": {
+        "A": 0.0,
+        "B": 0.0,
+        "C": 0.0,
+        "D": 0.0,
+        "E": 0.0
+      },
+      "mismatched-naive__final_conflicts_mean": 0.0
+    },
+    {
+      "rank": 3,
+      "pool_idx": 4,
+      "hardness": 13,
+      "seconds": 31.325158834457397,
+      "matched-aware__final_mean": 0.38352941176470584,
+      "matched-aware__final_sd": 0.0328570353971034,
+      "matched-aware__actions_mean": 28.8,
+      "matched-aware__init_conflicts_mean": 40.0,
+      "matched-aware__init_conflicts_sd": 0.0,
+      "matched-aware__init_phantom_mean": 0.0,
+      "matched-aware__init_real_mean": 40.0,
+      "matched-aware__init_by_type_mean": {
+        "I": 8.0,
+        "II": 8.0,
+        "III": 24.0
+      },
+      "matched-aware__init_by_agent_mean": {
+        "A": 20.0,
+        "B": 0.0,
+        "C": 0.0,
+        "D": 20.0,
+        "E": 0.0
+      },
+      "matched-aware__final_conflicts_mean": 324.0,
+      "matched-naive__final_mean": 0.4,
+      "matched-naive__final_sd": 0.06655122646461625,
+      "matched-naive__actions_mean": 27.0,
+      "matched-naive__init_conflicts_mean": 40.0,
+      "matched-naive__init_conflicts_sd": 0.0,
+      "matched-naive__init_phantom_mean": 0.0,
+      "matched-naive__init_real_mean": 40.0,
+      "matched-naive__init_by_type_mean": {
+        "I": 8.0,
+        "II": 8.0,
+        "III": 24.0
+      },
+      "matched-naive__init_by_agent_mean": {
+        "A": 20.0,
+        "B": 0.0,
+        "C": 0.0,
+        "D": 20.0,
+        "E": 0.0
+      },
+      "matched-naive__final_conflicts_mean": 317.8,
+      "mismatched-aware__final_mean": 0.4329411764705882,
+      "mismatched-aware__final_sd": 0.0315680185058794,
+      "mismatched-aware__actions_mean": 27.2,
+      "mismatched-aware__init_conflicts_mean": 95.0,
+      "mismatched-aware__init_conflicts_sd": 0.0,
+      "mismatched-aware__init_phantom_mean": 20.0,
+      "mismatched-aware__init_real_mean": 75.0,
+      "mismatched-aware__init_by_type_mean": {
+        "I": 19.0,
+        "II": 19.0,
+        "III": 57.0
+      },
+      "mismatched-aware__init_by_agent_mean": {
+        "A": 60.0,
+        "B": 0.0,
+        "C": 0.0,
+        "D": 25.0,
+        "E": 10.0
+      },
+      "mismatched-aware__final_conflicts_mean": 195.6,
+      "mismatched-naive__final_mean": 0.4423529411764706,
+      "mismatched-naive__final_sd": 0.06313603701175878,
+      "mismatched-naive__actions_mean": 29.0,
+      "mismatched-naive__init_conflicts_mean": 20.0,
+      "mismatched-naive__init_conflicts_sd": 0.0,
+      "mismatched-naive__init_phantom_mean": 0.0,
+      "mismatched-naive__init_real_mean": 20.0,
+      "mismatched-naive__init_by_type_mean": {
+        "I": 4.0,
+        "II": 4.0,
+        "III": 12.0
+      },
+      "mismatched-naive__init_by_agent_mean": {
+        "A": 0.0,
+        "B": 0.0,
+        "C": 0.0,
+        "D": 20.0,
+        "E": 0.0
+      },
+      "mismatched-naive__final_conflicts_mean": 342.4
+    }
+  ]
+}

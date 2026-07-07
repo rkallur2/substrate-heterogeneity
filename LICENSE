@@ -1,0 +1,20 @@
+Copyright (c) 2026 Ravikiran Kalluri and Taro Kanno
+
+TODO: Choose a license before public release. Recommended options:
+
+  - MIT License        (permissive, allows commercial use, minimal restrictions)
+                       https://opensource.org/licenses/MIT
+
+  - Apache 2.0         (permissive, includes explicit patent grant)
+                       https://opensource.org/licenses/Apache-2.0
+
+  - BSD 3-Clause       (permissive, no endorsement clause)
+                       https://opensource.org/licenses/BSD-3-Clause
+
+  - CC BY 4.0          (for the manuscript/figures, not code)
+                       https://creativecommons.org/licenses/by/4.0/
+
+The Netica .dne files in this repository are derived from the original Norsys
+Software Corp. car-diagnosis example (https://www.norsys.com/netica.html).
+Their inclusion here is under the assumption of academic-example use;
+commercial redistribution may require permission from Norsys.
